@@ -40,6 +40,8 @@ class QuillToolbarVideoConfig {
     this.onRequestPickVideo,
     this.onVideoInsertedCallback,
     this.onVideoInsertCallback,
+    this.enableGallery = true,
+    this.enableCamera = true,
   });
 
   final OnRequestPickVideo? onRequestPickVideo;
@@ -47,4 +49,7 @@ class QuillToolbarVideoConfig {
   final OnVideoInsertedCallback? onVideoInsertedCallback;
 
   final OnVideoInsertCallback? onVideoInsertCallback;
+
+  final bool enableGallery;
+  final bool enableCamera;
 }

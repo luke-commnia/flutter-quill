@@ -54,7 +54,7 @@ class QuillToolbarVideoButton extends QuillToolbarBaseButtonStateless {
       return;
     }
 
-    final imageSource = await showSelectVideoSourceDialog(context: context);
+    final imageSource = await showSelectVideoSourceDialog(context: context, config: options?.videoConfig);
 
     if (imageSource == null) {
       return;

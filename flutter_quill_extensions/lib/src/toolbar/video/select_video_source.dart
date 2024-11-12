@@ -4,7 +4,8 @@ import 'package:flutter_quill/internal.dart';
 import 'config/video.dart';
 
 class SelectVideoSourceDialog extends StatelessWidget {
-  const SelectVideoSourceDialog({super.key});
+  final QuillToolbarVideoConfig? config;
+  const SelectVideoSourceDialog({super.key, this.config});
 
   @override
   Widget build(BuildContext context) {
@@ -14,21 +15,23 @@ class SelectVideoSourceDialog extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            ListTile(
-              title: Text(context.loc.gallery),
-              subtitle: Text(
-                context.loc.pickAVideoFromYourGallery,
+            if (config?.enableGallery ?? true)
+              ListTile(
+                title: Text(context.loc.gallery),
+                subtitle: Text(
+                  context.loc.pickAVideoFromYourGallery,
+                ),
+                leading: const Icon(Icons.photo_sharp),
+                onTap: () => Navigator.of(context).pop(InsertVideoSource.gallery),
               ),
-              leading: const Icon(Icons.photo_sharp),
-              onTap: () => Navigator.of(context).pop(InsertVideoSource.gallery),
-            ),
-            ListTile(
-              title: Text(context.loc.camera),
-              subtitle: Text(context.loc.recordAVideoUsingYourCamera),
-              leading: const Icon(Icons.camera),
-              enabled: !isDesktopApp,
-              onTap: () => Navigator.of(context).pop(InsertVideoSource.camera),
-            ),
+            if (config?.enableCamera ?? true)
+              ListTile(
+                title: Text(context.loc.camera),
+                subtitle: Text(context.loc.recordAVideoUsingYourCamera),
+                leading: const Icon(Icons.camera),
+                enabled: !isDesktopApp,
+                onTap: () => Navigator.of(context).pop(InsertVideoSource.camera),
+              ),
             ListTile(
               title: Text(context.loc.link),
               subtitle: Text(
@@ -45,13 +48,13 @@ class SelectVideoSourceDialog extends StatelessWidget {
 }
 
 Future<InsertVideoSource?> showSelectVideoSourceDialog({
-  required BuildContext context,
+  required BuildContext context, QuillToolbarVideoConfig? config,
 }) async {
   final imageSource = await showModalBottomSheet<InsertVideoSource>(
     showDragHandle: true,
     context: context,
     constraints: const BoxConstraints(maxWidth: 640),
-    builder: (context) => const SelectVideoSourceDialog(),
+    builder: (context) => SelectVideoSourceDialog(config: config),
   );
   return imageSource;
 }
