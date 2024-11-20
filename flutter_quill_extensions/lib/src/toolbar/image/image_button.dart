@@ -28,7 +28,7 @@ class QuillToolbarImageButton extends QuillToolbarBaseButtonStateless {
   @override
   QuillToolbarImageButtonOptions? get options => _options;
 
-  void _sharedOnPressed(BuildContext context) {
+  void sharedOnPressed(BuildContext context) {
     _onPressedHandler(context);
     afterButtonPressed(context);
   }
@@ -98,7 +98,7 @@ class QuillToolbarImageButton extends QuillToolbarBaseButtonStateless {
       ),
       tooltip: tooltip(context),
       isSelected: false,
-      onPressed: () => _sharedOnPressed(context),
+      onPressed: () => sharedOnPressed(context),
       iconTheme: iconTheme(context),
     );
   }
@@ -120,7 +120,7 @@ class QuillToolbarImageButton extends QuillToolbarBaseButtonStateless {
       QuillToolbarImageButtonExtraOptions(
         context: context,
         controller: controller,
-        onPressed: () => _sharedOnPressed(context),
+        onPressed: () => sharedOnPressed(context),
       ),
     );
   }
